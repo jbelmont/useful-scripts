@@ -1,0 +1,5 @@
+#! /bin/bash
+
+INPUT=$1
+
+echo $INPUT | tr -d '\n' | pbcopy

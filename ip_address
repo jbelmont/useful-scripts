@@ -1,0 +1,4 @@
+#! /bin/bash
+
+INTERFACE=$1
+ifconfig $INTERFACE | grep -w inet | cut -d ' ' -f2  | tr -d '\n'  | pbcopy

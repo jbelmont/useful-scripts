@@ -1,0 +1,6 @@
+#! /bin/bash
+
+DATABASE=$1
+FOLDER=$2 
+
+mongorestore -h ip:27017 --drop --db $DATABASE ~/mongodb/${FOLDER}/$DATABASE
