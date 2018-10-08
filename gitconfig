@@ -1,0 +1,42 @@
+[user]
+	name = Jean-Marcel Belmont
+	email = marcelbelmont@gmail.com
+[alias]
+   	lg = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative
+	s = status -s
+	pr = "!f() { git fetch -fu ${2:-origin} refs/pull/$1/head:pr/$1 && git checkout pr/$1; }; f"
+	pr-clean = "!git for-each-ref refs/heads/pr/* --format=\"%(refname)\" | while read ref ; do branch=${ref#refs/heads/} ; git branch -D $branch ; done"
+	spr = "!f() { git fetch -fu ${2:-origin} refs/pull-requests/$1/from:pr/$1 && git checkout pr/$1; }; f"
+   	jiralist = "!f() { git log origin/master...release/$1 --oneline --no-merges --pretty=format:'* %s' | egrep \"([A-Z]{2,}-)([0-9]+)\"; }; f"
+	cu = "!git pull -p && git branch --merged | grep -v '\\*\\|master\\|develop' | xargs -n 1 git branch -d"
+	unstage-changes = "!fn() { git reset $(git status | grep modified | awk '{print $2}' | xargs); }; fn"
+	nuke = "!f() { git checkout $(git status | grep modified | awk '{print $2}' | xargs); }; f"
+	gc-pull = "!fn() { git gc; git pull; }; fn"
+	local-list = "!fn() { git config --local --list; }; fn;"
+	global-list = "!fn() { git config --global --list; }; fn;"
+	system-list = "!fn() { git config --system --list; }; fn;"
+	commit-on-top-of-log="!f() { git log --pretty=oneline | head -1 | cut -c 1-40 | git show; }; f;"
+	open-remote-url="!fn() { open $(git config --local --list | grep 'remote.origin.url' | awk '{split($0,a,\""=\""); print a[2]}'); }; fn"
+	second-entry-from-reflog="!fn() { git log --reflog --pretty=oneline | head -2 | awk '{print $1}' | tail -1; }; fn;"
+    checkout-to-feature="!fn() { git checkout `git branch | grep $1 | tr -d '\n'`; }; fn"
+[core]
+	editor = nvim
+	excludesfile = /Users/jean-marcelbelmont/.gitignore_global
+[pull]
+	rebase = true
+[push]
+	default = simple
+[credential]
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[merge]
+	tool = code
