@@ -19,6 +19,9 @@
 	open-remote-url="!fn() { open $(git config --local --list | grep 'remote.origin.url' | awk '{split($0,a,\""=\""); print a[2]}'); }; fn"
 	second-entry-from-reflog="!fn() { git log --reflog --pretty=oneline | head -2 | awk '{print $1}' | tail -1; }; fn;"
     checkout-to-feature="!fn() { git checkout $(git branch | grep $(echo $1 | tr '[:lower:]' '[:upper:]') | tr -d '\n'); }; fn"
+    push-current-branch-to-remote="!fn() { git push -u origin $(git rev-parse --abbrev-ref HEAD); }; fn;"
+    drop-commit="!fn() { git rebase --onto $1^ $1; }; fn"
+    top-commit="!fn () { git log | head -1 | awk '{ print $2 }'; }; fn;"
 [core]
 	editor = nvim
 	excludesfile = /Users/jean-marcelbelmont/.gitignore_global
