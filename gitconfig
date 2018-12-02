@@ -23,6 +23,7 @@
     drop-commit="!fn() { git rebase --onto $1^ $1; }; fn"
     top-commit="!fn () { git log | head -1 | awk '{ print $2 }'; }; fn;"
     open-github-pages-for-repo = "!sh ~/bin/open-current-gitbook-in-repo.sh"
+    open-current-pr = "!sh ~/bin/open-current-pr.sh"
 
 [core]
 	editor = nvim
