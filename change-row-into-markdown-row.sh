@@ -1,3 +1,3 @@
 #! /bin/bash
 
-pbpaste | awk -F" " '{OFS=FS}{ $1=$1" |"; $NF=$NF" |" ; print   }' | pbcopy
+pbpaste | tr '[:blank:][:blank:]+' '|' | sed 's/^/\| /g;s/\|/ \| /g;s/$/ \|/g' | sed 's/^[[:blank:]]//g'
