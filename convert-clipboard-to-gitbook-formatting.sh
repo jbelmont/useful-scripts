@@ -17,3 +17,5 @@ for word in $WORDS
 do
   echo $word | awk 'BEGIN { FS="\n" } { print "###### " $1 "\n\nContent\n" }'
 done
+
+printf "###### %s\n\nContent\n" $(echo $LAST_LINK | awk 'BEGIN { FS="[][]" } { print $2 }')
