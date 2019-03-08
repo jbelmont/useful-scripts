@@ -1,5 +1,9 @@
 #! /bin/bash
 
+if [ -z $1 ]; then
+  echo "You must pass a valid script"
+  exit 1
+fi
 mongo $1 \
   | sed '1,6d;/Type \"it\" for more/d;s/}$/},/g' \
   | sed 's/},/}/g' \
