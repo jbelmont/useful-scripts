@@ -13,4 +13,6 @@ DOCKERHUB_TOKEN=$(\
 
 LIST_URI="https://registry-1.docker.io/v2/library/$IMAGE_NAME/tags/list"
 
-curl -s -X GET -H "Accept: application/json" -H "Authorization: Bearer $DOCKERHUB_TOKEN" $LIST_URI | jq .
+RESULT=$(curl -s -X GET -H "Accept: application/json" -H "Authorization: Bearer $DOCKERHUB_TOKEN" $LIST_URI)
+
+echo $RESULT | jq '.tags[] | select(test("alpine"))'
