@@ -26,6 +26,7 @@
     open-github-pages-for-repo = "!sh ~/bin/open-current-gitbook-in-repo.sh"
     open-current-pr = "!sh ~/bin/open-current-pr.sh"
     show-recently-checked-out-branches = "!fn() { git reflog | grep -E \"moving from ([[:alnum:][:punct:]]+)\" | awk '{ print $6 }'; }; fn;"
+    pick-log-commit-changes="!sh ~/bin/show-log-per-certain-commit.sh"
 
 [core]
 	editor = nvim
