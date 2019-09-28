@@ -1,6 +1,6 @@
 #! /bin/bash
 
-CONTAINERS=$(docker ps -a | grep -v "busybox:latest" | grep -v "api-workshop_data" | awk '{ print $1 }' | sed '1d')
+CONTAINERS=$(docker ps -a | awk '{ if (NR>1) { print $1 } }')
 
 echo $(date "+%A %B %d %T %y")
 printf "Stopping Containers: %s\n" $(echo $CONTAINERS)
@@ -23,6 +23,6 @@ docker rmi $DANGLING_IMAGES 2> /dev/null
 
 
 echo $(date "+%A %B %d %T %y")
-DOCKER_VOLUME_IDS=$(docker volume ls -qf dangling=true | /usr/bin/grep -v jenkins-data | /usr/bin/grep -v api-workshop_data)
+DOCKER_VOLUME_IDS=$(docker volume ls -qf dangling=true)
 printf "Remove dangling data volume ids: %s\n" $(echo $DOCKER_VOLUME_IDS)
 docker volume rm $DOCKER_VOLUME_IDS 2>/dev/null
